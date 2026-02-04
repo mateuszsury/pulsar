@@ -1,0 +1,202 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles */
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  color: #cccccc;
+  background-color: #1e1e1e;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar styles (VS Code style) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(121, 121, 121, 0.4);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(121, 121, 121, 0.7);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Selection */
+::selection {
+  background-color: #264f78;
+}
+
+/* Focus styles */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 1px solid #007acc;
+  outline-offset: -1px;
+}
+
+/* Button styles */
+@layer components {
+  .btn {
+    @apply px-3 py-1.5 rounded text-sm font-medium transition-colors;
+    @apply focus-visible:ring-2 focus-visible:ring-vscode-accent;
+  }
+
+  .btn-primary {
+    @apply bg-vscode-button text-white hover:bg-vscode-button-hover;
+  }
+
+  .btn-secondary {
+    @apply bg-vscode-input text-vscode-text hover:bg-vscode-hover;
+  }
+
+  .btn-ghost {
+    @apply bg-transparent text-vscode-text hover:bg-vscode-hover;
+  }
+
+  .btn-danger {
+    @apply bg-vscode-error/20 text-vscode-error hover:bg-vscode-error/30;
+  }
+
+  .btn-icon {
+    @apply p-1.5 rounded hover:bg-vscode-hover;
+  }
+}
+
+/* Input styles */
+@layer components {
+  .input {
+    @apply w-full px-2 py-1 rounded text-sm;
+    @apply bg-vscode-input text-vscode-text;
+    @apply border border-transparent;
+    @apply focus:border-vscode-accent;
+    @apply placeholder:text-vscode-text-dim;
+  }
+
+  .select {
+    @apply input appearance-none cursor-pointer;
+    @apply pr-8 bg-no-repeat bg-right;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23858585' d='M4.5 5.5L8 9l3.5-3.5'/%3E%3C/svg%3E");
+    background-position: right 4px center;
+  }
+}
+
+/* Panel styles */
+@layer components {
+  .panel {
+    @apply bg-vscode-panel border-t border-vscode-border;
+  }
+
+  .panel-header {
+    @apply flex items-center justify-between px-3 py-1 text-xs uppercase tracking-wider text-vscode-text-dim;
+    @apply border-b border-vscode-border;
+  }
+}
+
+/* Tab styles */
+@layer components {
+  .tab {
+    @apply px-3 py-1.5 text-sm text-vscode-text-dim hover:text-vscode-text;
+    @apply border-b-2 border-transparent;
+    @apply transition-colors;
+  }
+
+  .tab-active {
+    @apply text-vscode-text border-vscode-accent;
+  }
+}
+
+/* Tree view styles */
+@layer components {
+  .tree-item {
+    @apply flex items-center gap-1.5 px-2 py-0.5 text-sm cursor-pointer;
+    @apply hover:bg-vscode-hover;
+  }
+
+  .tree-item-selected {
+    @apply bg-vscode-selection;
+  }
+}
+
+/* Monaco Editor overrides */
+.monaco-editor {
+  font-family: 'Consolas', 'Menlo', 'Monaco', 'Courier New', monospace !important;
+}
+
+/* xterm.js overrides */
+.xterm {
+  padding: 4px;
+}
+
+.xterm-viewport::-webkit-scrollbar {
+  width: 10px;
+}
+
+.xterm-viewport::-webkit-scrollbar-thumb {
+  background: rgba(121, 121, 121, 0.4);
+}
+
+/* Animation utilities */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Status indicator */
+.status-dot {
+  @apply w-2 h-2 rounded-full;
+}
+
+.status-connected {
+  @apply bg-vscode-success;
+}
+
+.status-disconnected {
+  @apply bg-vscode-text-dim;
+}
+
+.status-error {
+  @apply bg-vscode-error;
+}
+
+.status-busy {
+  @apply bg-vscode-warning animate-pulse;
+}

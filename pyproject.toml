@@ -1,0 +1,86 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pulsar"
+version = "0.1.0"
+description = "Pulsar - Signal Your Code to Life. Desktop IDE for MicroPython/ESP32 development"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [
+    { name = "Pulsar Team" }
+]
+keywords = ["micropython", "esp32", "ide", "repl", "serial", "iot", "embedded"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Desktop Environment",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Embedded Systems",
+]
+
+dependencies = [
+    "aiohttp>=3.9.0",
+    "pywebview>=4.4.0",
+    "pyserial>=3.5",
+    "pyserial-asyncio>=0.6",
+    "esptool>=4.7.0",
+    "mcp>=1.0.0",
+    "pydantic>=2.5.0",
+    "pydantic-settings>=2.1.0",
+    "aiofiles>=23.2.0",
+    "pyright>=1.1.350",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.7.0",
+]
+build = [
+    "nuitka>=1.9.0",
+    "ordered-set>=4.1.0",
+    "zstandard>=0.22.0",
+]
+
+[project.scripts]
+pulsar = "pulsar.main:main"
+
+[project.entry-points."mcp.servers"]
+pulsar = "pulsar.mcp.server:serve"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+    "/assets",
+]
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+select = ["E", "F", "I", "N", "W", "UP"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unused_ignores = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
