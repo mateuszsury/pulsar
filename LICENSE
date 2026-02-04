@@ -1,21 +1,80 @@
-MIT License
+Pulsar - Dual License
 
 Copyright (c) 2026 Mateusz Sury
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This software is available under a dual license model:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+================================================================================
+                        PERSONAL USE LICENSE (FREE)
+================================================================================
+
+Permission is hereby granted, free of charge, to any individual obtaining a copy
+of this software and associated documentation files (the "Software"), to use,
+copy, modify, and run the Software for PERSONAL, NON-COMMERCIAL purposes only,
+subject to the following conditions:
+
+1. The Software may only be used for personal projects, learning, education,
+   hobbyist activities, and other non-commercial purposes.
+
+2. The above copyright notice and this permission notice shall be included in
+   all copies or substantial portions of the Software.
+
+3. The Software may not be sold, sublicensed, or distributed for profit.
+
+4. Attribution to the original author (Mateusz Sury) is required when sharing
+   modifications or derivative works.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+
+================================================================================
+                        COMMERCIAL USE LICENSE (PAID)
+================================================================================
+
+For any COMMERCIAL use of this Software, including but not limited to:
+
+- Using the Software in a business environment
+- Using the Software to develop commercial products or services
+- Integrating the Software into products that are sold or monetized
+- Using the Software in a company, organization, or for-profit entity
+- Providing services based on the Software
+- Distributing the Software as part of a commercial offering
+
+A separate commercial license MUST be obtained.
+
+To obtain a commercial license, please contact:
+
+    Mateusz Sury
+    Email: mateuszsury25@gmail.com
+
+Commercial licenses are available with:
+- Priority support
+- Custom feature development
+- Integration assistance
+- Volume licensing options
+
+================================================================================
+                              DEFINITIONS
+================================================================================
+
+"Personal Use" means use by an individual for personal projects, learning,
+education, or hobbyist activities that do not generate revenue or commercial
+benefit.
+
+"Commercial Use" means any use in connection with a business, organization,
+or activity intended to generate revenue, profit, or commercial advantage,
+whether direct or indirect.
+
+================================================================================
+                              DISCLAIMER
+================================================================================
+
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+================================================================================
+
+For questions about licensing, please contact: mateuszsury25@gmail.com

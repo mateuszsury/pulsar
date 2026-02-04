@@ -24,7 +24,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/platform-Windows-blue" alt="Platform">
   <img src="https://img.shields.io/badge/python-3.11+-green" alt="Python">
-  <img src="https://img.shields.io/badge/license-MIT-orange" alt="License">
+  <img src="https://img.shields.io/badge/license-Dual%20(Free%2FCommercial)-orange" alt="License">
   <img src="https://img.shields.io/badge/ESP32-MicroPython-red" alt="ESP32">
 </p>
 
@@ -690,7 +690,35 @@ Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) for details.
+**Dual License Model:**
+
+| Use Case | License | Cost |
+|----------|---------|------|
+| 🏠 **Personal Use** | Free License | **FREE** |
+| 🎓 **Education/Learning** | Free License | **FREE** |
+| 🔧 **Hobbyist Projects** | Free License | **FREE** |
+| 🏢 **Commercial Use** | Commercial License | **Paid** |
+| 💼 **Business Environment** | Commercial License | **Paid** |
+
+### Personal Use (Free)
+
+You can use Pulsar for free for:
+- Personal projects
+- Learning and education
+- Hobbyist activities
+- Non-commercial development
+
+### Commercial Use (Paid)
+
+For commercial use, including:
+- Business environments
+- Commercial products/services
+- For-profit organizations
+
+**Contact for commercial license:**
+📧 **mateuszsury25@gmail.com**
+
+See [LICENSE](LICENSE) for full details.
 
 ## Author
 
