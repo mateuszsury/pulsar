@@ -205,15 +205,300 @@ Work with multiple ESP32 devices simultaneously!
 - Production line programming
 - Comparative debugging
 
-### 🤖 AI-Assisted Development (MCP)
+### 🤖 AI-Assisted Development (MCP Integration)
 
-Integrate with **Claude Desktop** for AI-powered MicroPython development.
+Pulsar integrates with **Claude Desktop** through the **Model Context Protocol (MCP)**, enabling revolutionary AI-powered ESP32 development. Claude becomes your intelligent coding partner with direct access to your hardware!
 
-With MCP (Model Context Protocol) integration, Claude can:
-- Execute code on your ESP32 directly
-- Read and write files on the device
-- Debug issues interactively
-- Generate MicroPython code optimized for your hardware
+---
+
+## MCP Integration Guide
+
+### What is MCP?
+
+**Model Context Protocol (MCP)** is Anthropic's open standard that allows AI assistants like Claude to interact with external tools and services. With Pulsar's MCP integration, Claude can:
+
+- 🔌 **Connect to your ESP32** - Establish serial connections
+- ▶️ **Execute code directly** - Run Python on your device in real-time
+- 📁 **Manage files** - Read, write, and delete files on ESP32
+- 🔍 **Debug interactively** - Test code and see results immediately
+- 🛠️ **Flash firmware** - Update MicroPython on your device
+- 📶 **Configure WiFi** - Set up network connections
+
+### Setup Instructions
+
+#### Step 1: Install Claude Desktop
+
+Download Claude Desktop from [claude.ai/download](https://claude.ai/download) if you haven't already.
+
+#### Step 2: Configure MCP Server
+
+Open your Claude Desktop configuration file:
+
+| OS | Path |
+|----|------|
+| **Windows** | `%APPDATA%\Claude\claude_desktop_config.json` |
+| **macOS** | `~/Library/Application Support/Claude/claude_desktop_config.json` |
+| **Linux** | `~/.config/Claude/claude_desktop_config.json` |
+
+Add the Pulsar MCP server configuration:
+
+```json
+{
+  "mcpServers": {
+    "pulsar": {
+      "command": "python",
+      "args": ["-m", "mcp_impl.server"],
+      "cwd": "C:/path/to/pulsar/src",
+      "env": {
+        "PYTHONPATH": "C:/path/to/pulsar/src"
+      }
+    }
+  }
+}
+```
+
+> **Note:** Replace `C:/path/to/pulsar` with your actual Pulsar installation path.
+
+#### Step 3: Restart Claude Desktop
+
+Close and reopen Claude Desktop. You should see the Pulsar tools available in Claude's tool list.
+
+### Available MCP Tools
+
+| Tool | Description | Example Use |
+|------|-------------|-------------|
+| `list_ports` | List all available serial ports | "What ESP32 devices are connected?" |
+| `connect` | Connect to a device by port | "Connect to COM4" |
+| `disconnect` | Disconnect from current device | "Disconnect from the ESP32" |
+| `execute` | Run Python code on device | "Turn on the LED on pin 2" |
+| `list_files` | List files on device filesystem | "What files are on my ESP32?" |
+| `read_file` | Read file contents from device | "Show me the contents of main.py" |
+| `write_file` | Write/create file on device | "Create a boot.py that connects to WiFi" |
+| `delete_file` | Delete file from device | "Remove the old config.json" |
+| `reset` | Reset the device (soft/hard) | "Reset the ESP32" |
+| `get_device_info` | Get chip info, MAC, flash size | "What ESP32 model is this?" |
+
+### Example Conversations with Claude
+
+#### Example 1: Quick LED Test
+
+**You:** "Connect to my ESP32 on COM4 and blink the onboard LED"
+
+**Claude:** *Uses `connect` tool, then `execute` tool*
+```python
+from machine import Pin
+import time
+
+led = Pin(2, Pin.OUT)
+for i in range(5):
+    led.value(1)
+    time.sleep(0.5)
+    led.value(0)
+    time.sleep(0.5)
+```
+"Done! The LED should have blinked 5 times."
+
+---
+
+#### Example 2: Create IoT Sensor Project
+
+**You:** "Create a temperature monitoring system that reads from DHT22 on pin 4 and sends data to my MQTT broker at 192.168.1.100"
+
+**Claude:** *Creates multiple files using `write_file` tool*
+
+```python
+# config.py
+WIFI_SSID = "YourNetwork"
+WIFI_PASSWORD = "YourPassword"
+MQTT_BROKER = "192.168.1.100"
+MQTT_TOPIC = "home/temperature"
+DHT_PIN = 4
+INTERVAL = 60  # seconds
+```
+
+```python
+# main.py
+from machine import Pin
+from dht import DHT22
+from umqtt.simple import MQTTClient
+import network
+import time
+import config
+
+# Connect to WiFi
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+wlan.connect(config.WIFI_SSID, config.WIFI_PASSWORD)
+
+while not wlan.isconnected():
+    time.sleep(1)
+
+print(f"Connected: {wlan.ifconfig()[0]}")
+
+# Setup sensor and MQTT
+sensor = DHT22(Pin(config.DHT_PIN))
+client = MQTTClient("esp32_temp", config.MQTT_BROKER)
+client.connect()
+
+# Main loop
+while True:
+    sensor.measure()
+    temp = sensor.temperature()
+    humidity = sensor.humidity()
+
+    payload = f'{{"temp": {temp}, "humidity": {humidity}}}'
+    client.publish(config.MQTT_TOPIC, payload)
+    print(f"Sent: {payload}")
+
+    time.sleep(config.INTERVAL)
+```
+
+"I've created the project files. Want me to upload them and test?"
+
+---
+
+#### Example 3: Debug a Problem
+
+**You:** "My ESP32 keeps crashing when I try to connect to WiFi. Here's my code..."
+
+**Claude:** *Uses `execute` tool to test incrementally*
+
+"Let me test the WiFi connection step by step on your device..."
+
+```python
+import network
+wlan = network.WLAN(network.STA_IF)
+print(f"Interface active: {wlan.active()}")
+```
+
+"The interface is inactive. Let me activate it and check for errors..."
+
+```python
+wlan.active(True)
+print(f"Active: {wlan.active()}")
+print(f"Scan results: {wlan.scan()}")
+```
+
+"Found the issue! Your network 'MyWiFi' uses WPA3 which isn't supported. Try connecting to a WPA2 network or update your router settings."
+
+---
+
+#### Example 4: File Management
+
+**You:** "Show me all files on my ESP32 and clean up any .pyc files"
+
+**Claude:** *Uses `list_files` and `delete_file` tools*
+
+"Here's what's on your device:
+- `/boot.py` (245 bytes)
+- `/main.py` (1.2 KB)
+- `/lib/` (directory)
+- `/lib/umqtt.pyc` (892 bytes)
+- `/config.pyc` (156 bytes)
+
+I found 2 .pyc files. Deleting them now..."
+
+"Done! Removed `umqtt.pyc` and `config.pyc`. These compiled files aren't needed on MicroPython."
+
+---
+
+#### Example 5: Hardware Discovery
+
+**You:** "I just got a new ESP32 board. Tell me everything about it."
+
+**Claude:** *Uses `connect` and `get_device_info` tools, then `execute`*
+
+"Connected! Here's your board info:
+
+| Property | Value |
+|----------|-------|
+| **Chip** | ESP32-S3 |
+| **Flash** | 8MB |
+| **PSRAM** | 2MB |
+| **MAC** | `AA:BB:CC:DD:EE:FF` |
+| **MicroPython** | v1.23.0 |
+
+Let me also check the pins..."
+
+```python
+import machine
+print(f"CPU Freq: {machine.freq()/1e6} MHz")
+print(f"Free memory: {gc.mem_free()} bytes")
+```
+
+"Your ESP32-S3 is running at 240 MHz with 142KB free RAM. It has native USB support - perfect for fast development!"
+
+---
+
+### Tips for Using Claude with Pulsar
+
+#### 1. Be Specific About Hardware
+
+```
+❌ "Make an LED blink"
+✅ "Blink the LED connected to GPIO 2 on my ESP32"
+```
+
+#### 2. Mention Your Sensor Models
+
+```
+❌ "Read the temperature"
+✅ "Read temperature from DHT22 sensor on pin 4"
+```
+
+#### 3. Provide Context
+
+```
+❌ "Fix my code"
+✅ "My code crashes after 10 minutes. I suspect a memory leak. Here's main.py..."
+```
+
+#### 4. Ask for Step-by-Step Testing
+
+```
+"Test each part of this code separately to find where it fails"
+```
+
+#### 5. Request Explanations
+
+```
+"Write code to control a servo, and explain each line"
+```
+
+### Workflow: AI-Powered Development Cycle
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    DEVELOPMENT CYCLE                        │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  1. DESCRIBE          "I want to build a smart doorbell     │
+│     ────────►          with camera and MQTT notifications"  │
+│                                                             │
+│  2. CLAUDE DESIGNS    Creates project structure, suggests   │
+│     ────────►         components, writes initial code       │
+│                                                             │
+│  3. DEPLOY            Claude uploads files to ESP32         │
+│     ────────►         using write_file tool                 │
+│                                                             │
+│  4. TEST              Claude executes code, checks output   │
+│     ────────►         using execute tool                    │
+│                                                             │
+│  5. DEBUG             If errors, Claude reads logs,         │
+│     ────────►         modifies code, retests                │
+│                                                             │
+│  6. ITERATE           Refine until working perfectly        │
+│     ────────►                                               │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Security Considerations
+
+- **Local Only** - MCP runs locally, no cloud connection required
+- **No Auto-Execute** - Claude asks before running code on your device
+- **Full Visibility** - All commands are shown in Claude's responses
+- **You Control Access** - Only you can approve tool usage
 
 ---
 
