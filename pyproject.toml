@@ -8,16 +8,16 @@ version = "0.1.0"
 description = "Pulsar - Signal Your Code to Life. Desktop IDE for MicroPython/ESP32 development"
 readme = "README.md"
 requires-python = ">=3.11"
-license = "MIT"
+license = "LicenseRef-Proprietary"
 authors = [
-    { name = "Pulsar Team" }
+    { name = "Mateusz Sury", email = "mateuszsury25@gmail.com" }
 ]
 keywords = ["micropython", "esp32", "ide", "repl", "serial", "iot", "embedded"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Environment :: Desktop Environment",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
+    "License :: Other/Proprietary License",
     "Operating System :: Microsoft :: Windows",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
