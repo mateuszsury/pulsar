@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 import webview
 
 if TYPE_CHECKING:
-    from core.config import Config
+    from pulsar.core.config import Config
 
 logger = logging.getLogger(__name__)
 

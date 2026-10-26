@@ -2,10 +2,10 @@
 
 
 a = Analysis(
-    ['src\\main.py'],
+    ['src\\pulsar\\main.py'],
     pathex=['src'],
     binaries=[],
-    datas=[('src/ui/static', 'ui/static')],
+    datas=[('src/pulsar/ui/static', 'ui/static')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

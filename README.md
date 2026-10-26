@@ -247,7 +247,7 @@ Add the Pulsar MCP server configuration:
   "mcpServers": {
     "pulsar": {
       "command": "python",
-      "args": ["-m", "mcp_impl.server"],
+      "args": ["-m", "pulsar.mcp_impl.server"],
       "cwd": "C:/path/to/pulsar/src",
       "env": {
         "PYTHONPATH": "C:/path/to/pulsar/src"

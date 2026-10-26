@@ -9,7 +9,7 @@ from pathlib import Path
 
 # Paths
 ROOT_DIR = Path(__file__).parent
-SRC_DIR = ROOT_DIR / "src"
+SRC_DIR = ROOT_DIR / "src" / "pulsar"
 FRONTEND_DIR = ROOT_DIR / "frontend"
 STATIC_DIR = SRC_DIR / "ui" / "static"
 DIST_DIR = ROOT_DIR / "dist"
@@ -74,40 +74,40 @@ def build_python() -> bool:
         f"--workpath={DIST_DIR / 'build'}",
         f"--specpath={DIST_DIR}",
         # Add the src directory as a path
-        f"--paths={SRC_DIR}",
+        f"--paths={ROOT_DIR / 'src'}",
         # Add data files
         f"--add-data={STATIC_DIR};ui/static",
         # Add MicroPython stubs for LSP
         f"--add-data={STUBS_DIR};stubs",
         # Include internal packages from src
-        "--hidden-import=core",
-        "--hidden-import=core.app",
-        "--hidden-import=core.config",
-        "--hidden-import=core.events",
-        "--hidden-import=server",
-        "--hidden-import=server.api",
-        "--hidden-import=server.websocket",
-        "--hidden-import=serial_manager",
-        "--hidden-import=serial_manager.manager",
-        "--hidden-import=serial_manager.device",
-        "--hidden-import=serial_manager.repl",
-        "--hidden-import=serial_manager.file_transfer",
-        "--hidden-import=serial_manager.discovery",
-        "--hidden-import=mcp_impl",
-        "--hidden-import=mcp_impl.server",
-        "--hidden-import=mcp_impl.tools",
-        "--hidden-import=mcp_impl.config_generator",
-        "--hidden-import=tools",
-        "--hidden-import=tools.flasher",
-        "--hidden-import=tools.wifi",
-        "--hidden-import=tools.sync",
-        "--hidden-import=tools.lib_manager",
-        "--hidden-import=ui",
-        "--hidden-import=ui.window",
+        "--hidden-import=pulsar.core",
+        "--hidden-import=pulsar.core.app",
+        "--hidden-import=pulsar.core.config",
+        "--hidden-import=pulsar.core.events",
+        "--hidden-import=pulsar.server",
+        "--hidden-import=pulsar.server.api",
+        "--hidden-import=pulsar.server.websocket",
+        "--hidden-import=pulsar.serial_comm",
+        "--hidden-import=pulsar.serial_comm.manager",
+        "--hidden-import=pulsar.serial_comm.device",
+        "--hidden-import=pulsar.serial_comm.repl",
+        "--hidden-import=pulsar.serial_comm.file_transfer",
+        "--hidden-import=pulsar.serial_comm.discovery",
+        "--hidden-import=pulsar.mcp_impl",
+        "--hidden-import=pulsar.mcp_impl.server",
+        "--hidden-import=pulsar.mcp_impl.tools",
+        "--hidden-import=pulsar.mcp_impl.config_generator",
+        "--hidden-import=pulsar.tools",
+        "--hidden-import=pulsar.tools.flasher",
+        "--hidden-import=pulsar.tools.wifi",
+        "--hidden-import=pulsar.tools.sync",
+        "--hidden-import=pulsar.tools.lib_manager",
+        "--hidden-import=pulsar.ui",
+        "--hidden-import=pulsar.ui.window",
         # LSP module
-        "--hidden-import=lsp",
-        "--hidden-import=lsp.manager",
-        "--hidden-import=lsp.protocol",
+        "--hidden-import=pulsar.lsp",
+        "--hidden-import=pulsar.lsp.manager",
+        "--hidden-import=pulsar.lsp.protocol",
         # Hidden imports for external packages
         "--hidden-import=aiohttp",
         "--hidden-import=aiohttp.web",

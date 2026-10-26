@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 from typing import Any, Callable, Optional
 
-from lsp.protocol import JSONRPCProtocol
+from pulsar.lsp.protocol import JSONRPCProtocol
 
 logger = logging.getLogger(__name__)
 
@@ -47,7 +47,10 @@ class LSPManager:
             return Path(sys._MEIPASS) / "stubs"  # type: ignore
         else:
             # Development mode
-            return Path(__file__).parent.parent.parent / "stubs"
+            packaged = Path(__file__).resolve().parents[1] / "stubs"
+            if packaged.is_dir():
+                return packaged
+            return Path(__file__).resolve().parents[3] / "stubs"
 
     async def start(self, workspace_root: Optional[Path] = None) -> bool:
         """Start Pyright language server.

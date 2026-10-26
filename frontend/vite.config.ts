@@ -18,7 +18,7 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: '../src/ui/static',
+    outDir: '../src/pulsar/ui/static',
     emptyOutDir: true,
     sourcemap: false,
   },

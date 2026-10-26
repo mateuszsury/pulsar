@@ -4,12 +4,12 @@ import asyncio
 import logging
 from typing import Any, Callable
 
-from core.config import Config
-from core.events import EventBus, EventType
-from serial_comm.device import Device, DeviceState
-from serial_comm.discovery import PortDiscovery, PortInfo
-from serial_comm.file_transfer import FileTransfer
-from serial_comm.repl import RawREPL, REPLResult
+from pulsar.core.config import Config
+from pulsar.core.events import EventBus, EventType
+from pulsar.serial_comm.device import Device, DeviceState
+from pulsar.serial_comm.discovery import PortDiscovery, PortInfo
+from pulsar.serial_comm.file_transfer import FileTransfer
+from pulsar.serial_comm.repl import RawREPL, REPLResult
 
 logger = logging.getLogger(__name__)
 

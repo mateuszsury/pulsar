@@ -5,8 +5,8 @@ import logging
 import threading
 from typing import Any
 
-from core.config import Config
-from core.events import EventBus, EventType
+from pulsar.core.config import Config
+from pulsar.core.events import EventBus, EventType
 
 logger = logging.getLogger(__name__)
 
@@ -36,12 +36,12 @@ class Application:
         await self.events.start()
 
         # Initialize serial manager
-        from serial_comm.manager import SerialManager
+        from pulsar.serial_comm.manager import SerialManager
         self._serial_manager = SerialManager(self.events, self.config)
         await self._serial_manager.start()
 
         # Initialize HTTP/WebSocket server
-        from server.api import APIServer
+        from pulsar.server.api import APIServer
         self._server = APIServer(
             events=self.events,
             config=self.config,
@@ -136,7 +136,7 @@ class Application:
         time.sleep(0.5)
 
         # Create window (must be on main thread)
-        from ui.window import create_window
+        from pulsar.ui.window import create_window
         self._window = create_window(self.config)
 
         logger.info("Starting pywebview...")

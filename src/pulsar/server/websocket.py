@@ -10,9 +10,9 @@ from weakref import WeakSet
 from aiohttp import web, WSMsgType
 
 if TYPE_CHECKING:
-    from core.events import Event, EventBus
-    from serial_comm.manager import SerialManager
-    from lsp.manager import LSPManager
+    from pulsar.core.events import Event, EventBus
+    from pulsar.serial_comm.manager import SerialManager
+    from pulsar.lsp.manager import LSPManager
 
 logger = logging.getLogger(__name__)
 
@@ -184,7 +184,7 @@ class WebSocketHandler:
     async def _get_lsp_manager(self) -> "LSPManager":
         """Get or create LSP manager."""
         if self._lsp_manager is None:
-            from lsp.manager import LSPManager
+            from pulsar.lsp.manager import LSPManager
 
             def on_diagnostics(uri: str, diagnostics: list[dict[str, Any]]) -> None:
                 # Broadcast diagnostics to all connected clients

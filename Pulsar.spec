@@ -4,7 +4,7 @@ Pulsar - ESP32 & MicroPython IDE
 PyInstaller Specification File
 
 Author: Mateusz Sury
-License: MIT
+License: see LICENSE (personal/commercial dual license)
 
 This spec file configures PyInstaller to build Pulsar as a single
 Windows executable with all dependencies bundled.
@@ -28,7 +28,7 @@ import os
 SPEC_DIR = os.path.dirname(os.path.abspath(SPEC))
 
 # Source directories
-SRC_DIR = os.path.join(SPEC_DIR, 'src')
+SRC_DIR = os.path.join(SPEC_DIR, 'src', 'pulsar')
 STATIC_DIR = os.path.join(SRC_DIR, 'ui', 'static')
 STUBS_DIR = os.path.join(SPEC_DIR, 'stubs')
 ASSETS_DIR = os.path.join(SPEC_DIR, 'assets')
@@ -62,45 +62,45 @@ hiddenimports = [
     # Internal Application Modules
     # -------------------------------------------------------------------------
     # Core
-    'core',
-    'core.app',
-    'core.config',
-    'core.events',
+    'pulsar.core',
+    'pulsar.core.app',
+    'pulsar.core.config',
+    'pulsar.core.events',
 
     # Server
-    'server',
-    'server.api',
-    'server.websocket',
+    'pulsar.server',
+    'pulsar.server.api',
+    'pulsar.server.websocket',
 
     # Serial Manager
-    'serial_manager',
-    'serial_manager.manager',
-    'serial_manager.device',
-    'serial_manager.repl',
-    'serial_manager.file_transfer',
-    'serial_manager.discovery',
+    'pulsar.serial_comm',
+    'pulsar.serial_comm.manager',
+    'pulsar.serial_comm.device',
+    'pulsar.serial_comm.repl',
+    'pulsar.serial_comm.file_transfer',
+    'pulsar.serial_comm.discovery',
 
     # MCP Integration
-    'mcp_impl',
-    'mcp_impl.server',
-    'mcp_impl.tools',
-    'mcp_impl.config_generator',
+    'pulsar.mcp_impl',
+    'pulsar.mcp_impl.server',
+    'pulsar.mcp_impl.tools',
+    'pulsar.mcp_impl.config_generator',
 
     # Tools
-    'tools',
-    'tools.flasher',
-    'tools.wifi',
-    'tools.sync',
-    'tools.lib_manager',
+    'pulsar.tools',
+    'pulsar.tools.flasher',
+    'pulsar.tools.wifi',
+    'pulsar.tools.sync',
+    'pulsar.tools.lib_manager',
 
     # UI
-    'ui',
-    'ui.window',
+    'pulsar.ui',
+    'pulsar.ui.window',
 
     # LSP
-    'lsp',
-    'lsp.manager',
-    'lsp.protocol',
+    'pulsar.lsp',
+    'pulsar.lsp.manager',
+    'pulsar.lsp.protocol',
 
     # -------------------------------------------------------------------------
     # External Dependencies
@@ -169,7 +169,7 @@ a = Analysis(
     [os.path.join(SRC_DIR, 'main.py')],
 
     # Additional paths to search for imports
-    pathex=[SRC_DIR],
+    pathex=[os.path.join(SPEC_DIR, "src")],
 
     # Binary dependencies
     binaries=binaries,

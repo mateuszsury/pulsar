@@ -9,9 +9,9 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from core.events import EventBus
+    from pulsar.core.events import EventBus
 
-from core.events import EventType
+from pulsar.core.events import EventType
 
 logger = logging.getLogger(__name__)
 

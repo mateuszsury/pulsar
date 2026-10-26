@@ -10,7 +10,7 @@ from pathlib import Path
 
 # Paths
 ROOT_DIR = Path(__file__).parent
-SRC_DIR = ROOT_DIR / "src"
+SRC_DIR = ROOT_DIR / "src" / "pulsar"
 FRONTEND_DIR = ROOT_DIR / "frontend"
 STATIC_DIR = SRC_DIR / "ui" / "static"
 DIST_DIR = ROOT_DIR / "dist"
@@ -94,6 +94,8 @@ def build_python(
         "--nofollow-import-to=webview.platforms.cocoa",
         "--nofollow-import-to=webview.platforms.gtk",
         "--nofollow-import-to=webview.platforms.qt",
+        # Include the application package
+        "--include-package=pulsar",
         # Include packages
         "--include-package=aiohttp",
         "--include-package=webview.platforms.winforms",
@@ -121,7 +123,7 @@ def build_python(
         "--product-name=Pulsar",
         "--product-version=0.1.0",
         "--file-description=Pulsar - Signal Your Code to Life. MicroPython/ESP32 IDE",
-        "--copyright=MIT License",
+        "--copyright=Copyright (c) 2026 Mateusz Sury; see LICENSE",
     ])
 
     # Entry point
@@ -129,7 +131,9 @@ def build_python(
 
     # Run Nuitka
     print("Compiling with Nuitka...")
-    result = run(cmd, check=False)
+    build_env = os.environ.copy()
+    build_env["PYTHONPATH"] = str(ROOT_DIR / "src") + os.pathsep + build_env.get("PYTHONPATH", "")
+    result = subprocess.run(cmd, check=False, env=build_env)
 
     if result.returncode != 0:
         print("ERROR: Nuitka compilation failed")

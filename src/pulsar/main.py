@@ -13,26 +13,17 @@ def _is_frozen():
     return getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS')
 
 
-# Handle frozen (PyInstaller), standalone, and module execution
-if _is_frozen():
-    # Running as PyInstaller frozen executable
-    from core.app import Application
-    from core.config import Config
-elif __name__ == "__main__" or not __package__:
-    # Running as standalone script - add parent to path
-    sys.path.insert(0, str(Path(__file__).parent))
-    from core.app import Application
-    from core.config import Config
-else:
-    # Running as module
-    from .core.app import Application
-    from .core.config import Config
+# Standalone source execution and installed console entry points share imports.
+if __name__ == "__main__" and not _is_frozen():
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from pulsar.core.app import Application
+from pulsar.core.config import Config
 
 
 def setup_logging(debug: bool = False) -> None:
     """Configure logging for the application."""
-    # Force DEBUG level temporarily to diagnose issues
-    level = logging.DEBUG
+    level = logging.DEBUG if debug else logging.INFO
     logging.basicConfig(
         level=level,
         format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
