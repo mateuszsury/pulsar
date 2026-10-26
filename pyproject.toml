@@ -15,7 +15,7 @@ authors = [
 keywords = ["micropython", "esp32", "ide", "repl", "serial", "iot", "embedded"]
 classifiers = [
     "Development Status :: 3 - Alpha",
-    "Environment :: Desktop Environment",
+    "Environment :: Win32 (MS Windows)",
     "Intended Audience :: Developers",
     "License :: Other/Proprietary License",
     "Operating System :: Microsoft :: Windows",
@@ -53,12 +53,13 @@ build = [
 
 [project.scripts]
 pulsar = "pulsar.main:main"
+pulsar-mcp = "pulsar.mcp_impl.server:main"
 
 [project.entry-points."mcp.servers"]
-pulsar = "pulsar.mcp.server:serve"
+pulsar = "pulsar.mcp_impl.server:serve"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src"]
+packages = ["src/pulsar"]
 
 [tool.hatch.build.targets.sdist]
 include = [
@@ -84,3 +85,7 @@ warn_unused_ignores = true
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 testpaths = ["tests"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"assets" = "pulsar/assets"
+"stubs" = "pulsar/stubs"

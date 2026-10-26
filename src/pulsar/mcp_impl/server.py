@@ -9,10 +9,10 @@ from mcp.server import Server
 from mcp.server.stdio import stdio_server
 from mcp.types import Tool, TextContent
 
-from core.config import Config
-from core.events import EventBus
-from serial_comm.manager import SerialManager
-from mcp_impl.tools import MCPTools, get_tool_definitions
+from pulsar.core.config import Config
+from pulsar.core.events import EventBus
+from pulsar.serial_comm.manager import SerialManager
+from pulsar.mcp_impl.tools import MCPTools, get_tool_definitions
 
 logger = logging.getLogger(__name__)
 

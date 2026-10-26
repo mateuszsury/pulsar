@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from serial_comm.manager import SerialManager
+    from pulsar.serial_comm.manager import SerialManager
 
 logger = logging.getLogger(__name__)
 

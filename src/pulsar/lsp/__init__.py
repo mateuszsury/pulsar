@@ -5,7 +5,7 @@ code completion, diagnostics, hover information, and go-to-definition
 support for MicroPython development.
 """
 
-from lsp.manager import LSPManager
-from lsp.protocol import JSONRPCProtocol
+from pulsar.lsp.manager import LSPManager
+from pulsar.lsp.protocol import JSONRPCProtocol
 
 __all__ = ["LSPManager", "JSONRPCProtocol"]

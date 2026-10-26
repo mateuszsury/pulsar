@@ -28,7 +28,7 @@ This will output the JSON configuration to add to your `claude_desktop_config.js
   "mcpServers": {
     "thonnyv2": {
       "command": "python",
-      "args": ["-m", "mcp_impl.server"],
+      "args": ["-m", "pulsar.mcp_impl.server"],
       "cwd": "/path/to/ThonnyV2/src",
       "env": {
         "PYTHONPATH": "/path/to/ThonnyV2/src"

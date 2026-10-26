@@ -8,14 +8,14 @@ from pathlib import Path
 def generate_config() -> dict:
     """Generate MCP server configuration for claude_desktop_config.json."""
     # Find the Pulsar source directory
-    src_dir = Path(__file__).parent.parent
+    src_dir = Path(__file__).parent.parent.parent
     python_exe = sys.executable
 
     config = {
         "mcpServers": {
             "pulsar": {
                 "command": python_exe,
-                "args": ["-m", "mcp_impl.server"],
+                "args": ["-m", "pulsar.mcp_impl.server"],
                 "cwd": str(src_dir),
                 "env": {
                     "PYTHONPATH": str(src_dir),
@@ -44,7 +44,7 @@ def print_config():
     print("\n" + "=" * 60)
 
     # Print available tools
-    from mcp_impl.tools import get_tool_definitions
+    from pulsar.mcp_impl.tools import get_tool_definitions
     tools = get_tool_definitions()
 
     print("\nAvailable MCP Tools:")

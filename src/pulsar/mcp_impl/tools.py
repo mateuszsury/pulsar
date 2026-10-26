@@ -265,7 +265,7 @@ print(json.dumps(result))
 
     async def get_chip_info(self, port: str) -> dict:
         """Get chip information using esptool."""
-        from tools.flasher import FirmwareFlasher
+        from pulsar.tools.flasher import FirmwareFlasher
 
         # Need temporary event bus for flasher
         class DummyEvents:
@@ -297,7 +297,7 @@ print(json.dumps(result))
     ) -> dict:
         """Sync a local folder to the device."""
         from pathlib import Path
-        from tools.sync import FolderSync
+        from pulsar.tools.sync import FolderSync
 
         folder = Path(local_path)
         if not folder.exists():

@@ -68,3 +68,9 @@ htmlcov/
 # Logs
 *.log
 logs/
+
+# Generated development files
+.ruff_cache/
+
+node_modules/
+src/pulsar/ui/static/

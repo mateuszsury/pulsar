@@ -7,17 +7,17 @@ from typing import TYPE_CHECKING, Any, Optional
 
 from aiohttp import web
 
-from server.websocket import WebSocketHandler
+from pulsar.server.websocket import WebSocketHandler
 
 if TYPE_CHECKING:
-    from core.config import Config
-    from core.events import EventBus
-    from serial_comm.manager import SerialManager
-    from tools.flasher import FirmwareFlasher
-    from tools.wifi import WiFiManager
-    from tools.sync import FolderSync
-    from tools.lib_manager import LibraryManager
-    from lsp.manager import LSPManager
+    from pulsar.core.config import Config
+    from pulsar.core.events import EventBus
+    from pulsar.serial_comm.manager import SerialManager
+    from pulsar.tools.flasher import FirmwareFlasher
+    from pulsar.tools.wifi import WiFiManager
+    from pulsar.tools.sync import FolderSync
+    from pulsar.tools.lib_manager import LibraryManager
+    from pulsar.lsp.manager import LSPManager
 
 logger = logging.getLogger(__name__)
 
@@ -391,7 +391,7 @@ class APIServer:
     async def _list_firmware(self, request: web.Request) -> web.Response:
         """GET /api/firmware/list - List available firmware."""
         if not self._flasher:
-            from tools.flasher import FirmwareFlasher
+            from pulsar.tools.flasher import FirmwareFlasher
             self._flasher = FirmwareFlasher(self.events)
 
         firmware_list = await self._flasher.list_available()
@@ -400,7 +400,7 @@ class APIServer:
     async def _flash_firmware(self, request: web.Request) -> web.Response:
         """POST /api/firmware/flash - Flash firmware."""
         if not self._flasher:
-            from tools.flasher import FirmwareFlasher
+            from pulsar.tools.flasher import FirmwareFlasher
             self._flasher = FirmwareFlasher(self.events)
 
         try:
@@ -435,7 +435,7 @@ class APIServer:
         port = request.match_info["port"]
 
         if not self._wifi_manager:
-            from tools.wifi import WiFiManager
+            from pulsar.tools.wifi import WiFiManager
             self._wifi_manager = WiFiManager(self.serial_manager)
 
         try:
@@ -449,7 +449,7 @@ class APIServer:
         port = request.match_info["port"]
 
         if not self._wifi_manager:
-            from tools.wifi import WiFiManager
+            from pulsar.tools.wifi import WiFiManager
             self._wifi_manager = WiFiManager(self.serial_manager)
 
         try:
@@ -474,7 +474,7 @@ class APIServer:
         port = request.match_info["port"]
 
         if not self._wifi_manager:
-            from tools.wifi import WiFiManager
+            from pulsar.tools.wifi import WiFiManager
             self._wifi_manager = WiFiManager(self.serial_manager)
 
         try:
@@ -497,7 +497,7 @@ class APIServer:
         port = request.match_info["port"]
 
         if not self._flasher:
-            from tools.flasher import FirmwareFlasher
+            from pulsar.tools.flasher import FirmwareFlasher
             self._flasher = FirmwareFlasher(self.events)
 
         try:
@@ -521,7 +521,7 @@ class APIServer:
     async def _erase_flash(self, request: web.Request) -> web.Response:
         """POST /api/firmware/erase - Erase flash."""
         if not self._flasher:
-            from tools.flasher import FirmwareFlasher
+            from pulsar.tools.flasher import FirmwareFlasher
             self._flasher = FirmwareFlasher(self.events)
 
         try:
@@ -548,7 +548,7 @@ class APIServer:
         port = request.match_info["port"]
 
         if not self._flasher:
-            from tools.flasher import FirmwareFlasher
+            from pulsar.tools.flasher import FirmwareFlasher
             self._flasher = FirmwareFlasher(self.events)
 
         try:
@@ -574,7 +574,7 @@ class APIServer:
         port = request.match_info["port"]
 
         if not self._flasher:
-            from tools.flasher import FirmwareFlasher
+            from pulsar.tools.flasher import FirmwareFlasher
             self._flasher = FirmwareFlasher(self.events)
 
         try:
@@ -601,7 +601,7 @@ class APIServer:
     async def _read_flash(self, request: web.Request) -> web.Response:
         """POST /api/firmware/read - Read flash to file (backup)."""
         if not self._flasher:
-            from tools.flasher import FirmwareFlasher
+            from pulsar.tools.flasher import FirmwareFlasher
             self._flasher = FirmwareFlasher(self.events)
 
         try:
@@ -646,7 +646,7 @@ class APIServer:
     async def _verify_flash(self, request: web.Request) -> web.Response:
         """POST /api/firmware/verify - Verify flash against file."""
         if not self._flasher:
-            from tools.flasher import FirmwareFlasher
+            from pulsar.tools.flasher import FirmwareFlasher
             self._flasher = FirmwareFlasher(self.events)
 
         try:
@@ -710,7 +710,7 @@ class APIServer:
             return error_response(f"Folder not found: {local_folder}")
 
         if not self._sync:
-            from tools.sync import FolderSync
+            from pulsar.tools.sync import FolderSync
             self._sync = FolderSync(self.serial_manager)
 
         try:
@@ -748,11 +748,11 @@ class APIServer:
             return error_response(f"Folder not found: {local_folder}")
 
         if not self._sync:
-            from tools.sync import FolderSync
+            from pulsar.tools.sync import FolderSync
 
             # Progress callback
             def on_progress(file: str, progress: float, status: str) -> None:
-                from core.events import EventType
+                from pulsar.core.events import EventType
                 self.events.emit(
                     EventType.FILE_PROGRESS,
                     {"port": port, "file": file, "progress": progress, "status": status},
@@ -773,7 +773,7 @@ class APIServer:
     async def _list_packages(self, request: web.Request) -> web.Response:
         """GET /api/packages - List available packages."""
         if not self._lib_manager:
-            from tools.lib_manager import LibraryManager
+            from pulsar.tools.lib_manager import LibraryManager
             self._lib_manager = LibraryManager(self.serial_manager)
 
         try:
@@ -788,7 +788,7 @@ class APIServer:
     async def _search_packages(self, request: web.Request) -> web.Response:
         """GET /api/packages/search?q=query - Search for packages."""
         if not self._lib_manager:
-            from tools.lib_manager import LibraryManager
+            from pulsar.tools.lib_manager import LibraryManager
             self._lib_manager = LibraryManager(self.serial_manager)
 
         query = request.query.get("q", "")
@@ -810,7 +810,7 @@ class APIServer:
         port = request.match_info["port"]
 
         if not self._lib_manager:
-            from tools.lib_manager import LibraryManager
+            from pulsar.tools.lib_manager import LibraryManager
             self._lib_manager = LibraryManager(self.serial_manager)
 
         try:
@@ -838,7 +838,7 @@ class APIServer:
             return error_response("Package name required")
 
         if not self._lib_manager:
-            from tools.lib_manager import LibraryManager
+            from pulsar.tools.lib_manager import LibraryManager
             self._lib_manager = LibraryManager(self.serial_manager)
 
         try:
@@ -859,7 +859,7 @@ class APIServer:
         package_name = request.match_info["name"]
 
         if not self._lib_manager:
-            from tools.lib_manager import LibraryManager
+            from pulsar.tools.lib_manager import LibraryManager
             self._lib_manager = LibraryManager(self.serial_manager)
 
         try:
@@ -874,7 +874,7 @@ class APIServer:
     async def _package_progress(self, request: web.Request) -> web.Response:
         """GET /api/packages/progress - Get installation progress."""
         if not self._lib_manager:
-            from tools.lib_manager import LibraryManager
+            from pulsar.tools.lib_manager import LibraryManager
             self._lib_manager = LibraryManager(self.serial_manager)
 
         return json_response(self._lib_manager.get_progress())
@@ -884,7 +884,7 @@ class APIServer:
     async def _get_lsp_manager(self) -> "LSPManager":
         """Get or create LSP manager."""
         if self._lsp_manager is None:
-            from lsp.manager import LSPManager
+            from pulsar.lsp.manager import LSPManager
             self._lsp_manager = LSPManager()
         return self._lsp_manager
 
