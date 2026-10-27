@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  Professional Desktop IDE for ESP32 & MicroPython Development
+  Desktop IDE for ESP32 & MicroPython Development
 </p>
 
 <p align="center">
@@ -30,30 +30,29 @@
 
 ---
 
+## Project overview
+
+A Windows desktop IDE for ESP32 and MicroPython editing, serial sessions and firmware tools.
+
+![Pulsar — IDE architecture. The frontend preview does not imply a connected device or a completed flashing operation.](docs/assets/presentation/overview.svg)
+
+IDE architecture. The frontend preview does not imply a connected device or a completed flashing operation.
+
+### Interface preview
+
+![pulsar interface preview](docs/assets/presentation/interface-preview.png)
+
+Built React frontend connected to the local Python API in --no-window mode. No serial device is attached; this is not a Windows packaging or flashing test.
+
+
 ## Why Pulsar?
 
-**Pulsar** was created to solve the frustrations of ESP32 MicroPython development. Unlike generic Python IDEs or basic serial monitors, Pulsar is built from the ground up specifically for embedded development.
+Pulsar brings editing, serial sessions, device files and firmware tools into
+one workspace. The React/Monaco frontend communicates with a local Python API;
+device operations use the configured serial connection.
 
-### The Problem
-
-- **Thonny** is great for beginners but lacks advanced features
-- **VS Code** requires complex setup with multiple extensions
-- **Arduino IDE** doesn't support MicroPython
-- **Generic serial monitors** don't understand Python syntax
-
-### The Solution
-
-Pulsar combines everything you need in one lightweight, portable application:
-
-| Feature | Pulsar | Thonny | VS Code | Serial Monitor |
-|---------|--------|--------|---------|----------------|
-| MicroPython Autocompletion | ✅ 50+ modules | ⚠️ Basic | ⚠️ Requires setup | ❌ |
-| Multi-device Support | ✅ Unlimited | ❌ Single | ⚠️ Complex | ❌ |
-| Firmware Flashing | ✅ Built-in | ✅ | ❌ External tool | ❌ |
-| Folder Sync | ✅ One-click | ❌ | ❌ | ❌ |
-| WiFi Configuration | ✅ Visual UI | ❌ | ❌ | ❌ |
-| Library Manager | ✅ 3 sources | ⚠️ Basic | ❌ | ❌ |
-| Portable | ✅ Single .exe | ❌ | ❌ | ✅ |
+The project is an Alpha desktop application. Review the installation, licensing
+and validation notes before depending on a particular device workflow.
 
 ---
 
